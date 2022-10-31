@@ -34,10 +34,10 @@ export default {
     })
 
     const  onSubmit = () => {
-      const option = {params:form,url:'/api/Login/Login'}
+      const option = {data:form,url:'/api/Login/Login'}
      
-     const res =  get(option);
-     
+     const res =  post(option);
+     router.push("/")
       console.log(res)
       console.log('submit!')
     }

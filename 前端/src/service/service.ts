@@ -55,6 +55,5 @@ export const get = (config:any) => {
     return Service({
         ...config,
         method: "get",
-        data: config.data
     })
 }

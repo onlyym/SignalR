@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SignalRHttps.Request;
 
 namespace IdentityAndJwt.Controllers
 {
@@ -90,17 +91,17 @@ namespace IdentityAndJwt.Controllers
             return Ok("修改成功");
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Login(string username, string password)
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginRequest loginRequest)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(loginRequest.username);
             if (user == null)
             {
                 return BadRequest("未找到用户");
             }
 
 
-            var res = await _userManager.CheckPasswordAsync(user, password);
+            var res = await _userManager.CheckPasswordAsync(user, loginRequest.password);
             if (!res)
             {
                 return BadRequest("登录失败");
